@@ -25,7 +25,8 @@ final class CategoryRepositoryTest extends TestCase
 
     private function createSchema(): void
     {
-        $this->pdo->exec(<<<'SQL'
+        $this->pdo->exec(
+            <<<'SQL'
             CREATE TABLE categories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 slug TEXT NOT NULL UNIQUE,
