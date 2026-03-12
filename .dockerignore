@@ -1,0 +1,15 @@
+/vendor/
+/node_modules/
+/var/
+/tests/
+/public/uploads/
+.git
+.gitignore
+.github
+.idea
+.vscode
+*.swp
+.DS_Store
+.env
+.env.local
+phpunit.xml

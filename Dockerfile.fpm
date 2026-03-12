@@ -1,0 +1,26 @@
+# PHP-FPM image for nginx stack
+FROM php:8.3-fpm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql opcache \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY docker/php/production.ini /usr/local/etc/php/conf.d/99-production.ini
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+COPY . .
+
+RUN php bin/compile-scss.php
+
+RUN mkdir -p var/smarty/compile var/smarty/cache var/cache var/log \
+    && chown -R www-data:www-data var/
+
+EXPOSE 9000

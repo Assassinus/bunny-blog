@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, mbstring
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Lint (PHP CS Fixer)
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: Run tests
+        run: vendor/bin/phpunit --testdox
+
+      - name: Compile SCSS
+        run: php bin/compile-scss.php

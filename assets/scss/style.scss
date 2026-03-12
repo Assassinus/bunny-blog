@@ -1,0 +1,467 @@
+@import 'variables';
+@import 'mixins';
+
+// ============================================================
+// Base
+// ============================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: $line-height;
+  color: $color-text;
+  background: $color-bg;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// ============================================================
+// Header
+// ============================================================
+
+.site-header {
+  background: $color-bg-card;
+  box-shadow: 0 1px 3px $color-shadow;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: $font-size-xl;
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary-hover;
+    }
+  }
+
+  .nav a {
+    color: $color-text;
+    text-decoration: none;
+    margin-left: 1.5rem;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+// ============================================================
+// Main content
+// ============================================================
+
+.main {
+  flex: 1;
+  padding-bottom: 2rem;
+}
+
+.page-title {
+  margin: 0 0 1.5rem;
+  font-size: $font-size-page;
+  font-weight: 700;
+}
+
+// ============================================================
+// Home: categories list
+// ============================================================
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.category-block {
+  @include card;
+  padding: 1.5rem;
+
+  .category-title {
+    margin: 0 0 0.5rem;
+    font-size: $font-size-2xl;
+    color: $color-primary;
+  }
+
+  .category-desc {
+    margin: 0 0 1rem;
+    color: $color-text-muted;
+    font-size: 0.95rem;
+  }
+}
+
+// ============================================================
+// Article previews (home page)
+// ============================================================
+
+.articles-preview {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+
+  .article-preview-item {
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.article-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem 0;
+  border-radius: $border-radius;
+  transition: background $transition-base;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+
+    .article-title {
+      color: $color-primary;
+    }
+  }
+}
+
+.article-thumb {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: $border-radius-xs;
+}
+
+.article-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color $transition-base;
+}
+
+.article-meta {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+// ============================================================
+// Button
+// ============================================================
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: $color-primary;
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: $border-radius;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background $transition-base;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+.btn-all {
+  margin-top: 0.5rem;
+}
+
+// ============================================================
+// Category page: toolbar + list
+// ============================================================
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $color-border;
+
+  .total {
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+  }
+
+  .sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    a {
+      color: $color-text-muted;
+      text-decoration: none;
+      font-size: $font-size-sm;
+
+      &.active {
+        color: $color-primary;
+        font-weight: 500;
+      }
+
+      &:hover:not(.active) {
+        color: $color-text;
+      }
+    }
+  }
+}
+
+.articles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.article-card {
+  @include card;
+  @include card-hover;
+  margin-bottom: 1rem;
+  overflow: hidden;
+
+  .article-link {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: flex-start;
+  }
+
+  .article-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .article-title {
+    font-size: $font-size-lg;
+    margin-bottom: 0.25rem;
+  }
+
+  .article-desc {
+    @include truncate-lines(2);
+    margin: 0 0 0.5rem;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}
+
+// ============================================================
+// Pagination
+// ============================================================
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+
+  .page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 0.5rem;
+    border-radius: $border-radius-sm;
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: $font-size-sm;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: $color-primary-light;
+      text-decoration: none;
+    }
+  }
+
+  .page-current {
+    background: $color-primary;
+    color: #fff;
+    pointer-events: none;
+
+    &:hover {
+      background: $color-primary;
+    }
+  }
+
+  .page-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    color: $color-text-dimmed;
+    font-size: $font-size-sm;
+  }
+
+  .page-prev,
+  .page-next {
+    font-size: $font-size-lg;
+  }
+}
+
+// ============================================================
+// Article full page
+// ============================================================
+
+.article-full {
+  @include card;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+
+  .article-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: $border-radius;
+    margin-bottom: 1rem;
+  }
+
+  .article-title {
+    margin: 0 0 0.5rem;
+    font-size: $font-size-3xl;
+  }
+
+  .article-meta {
+    margin-bottom: 1rem;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+
+    a {
+      color: $color-primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .article-lead {
+    font-size: $font-size-lg;
+    color: $color-text-muted;
+    margin-bottom: 1rem;
+  }
+
+  .article-body {
+    line-height: 1.7;
+  }
+}
+
+// ============================================================
+// Similar articles
+// ============================================================
+
+.similar {
+  @include card;
+  padding: 1.5rem;
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.15rem;
+  }
+}
+
+.similar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+
+  @include responsive($breakpoint-sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.similar-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: $border-radius;
+  overflow: hidden;
+  transition: background $transition-base;
+
+  &:hover .similar-title {
+    color: $color-primary;
+  }
+}
+
+.similar-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.similar-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  transition: color $transition-base;
+}
+
+.similar-meta {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+}
+
+// ============================================================
+// Error & empty states
+// ============================================================
+
+.error-page,
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: $color-text-muted;
+}
+
+.error-page .btn {
+  margin-top: 1rem;
+}
+
+// ============================================================
+// Footer
+// ============================================================
+
+.site-footer {
+  margin-top: auto;
+  padding: 1.5rem 0;
+  background: $color-bg-card;
+  border-top: 1px solid $color-border;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+
+  p {
+    margin: 0;
+  }
+}
